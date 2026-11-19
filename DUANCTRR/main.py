@@ -11,7 +11,6 @@ from traversal import bfs, dfs, format_tree
 from components import find_components, isolated_areas, suggest_links
 from visualize import draw
 
-
 def main():
     edge_file = sys.argv[1] if len(sys.argv) > 1 else os.path.join(BASE, "data", "edges.csv")
     node_file = sys.argv[2] if len(sys.argv) > 2 else os.path.join(BASE, "data", "nodes.csv")

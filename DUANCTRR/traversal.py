@@ -124,7 +124,7 @@ def count_components(g, algo):
 
 
 def _cli():
-    from graph_io import load_graph
+    from DUANCTRR.graph_io import load_graph
 
     base = os.path.dirname(os.path.abspath(__file__))
     ap = argparse.ArgumentParser(description="Duyệt BFS và DFS từ một đỉnh xuất phát")

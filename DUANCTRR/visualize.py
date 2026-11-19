@@ -38,7 +38,8 @@ def draw(g, components, suggestions, output="ket_qua_do_thi.png",
     if not g.vertices:
         raise ValueError("Đồ thị không có đỉnh để trực quan hóa.")
 
-    palette = plt.get_cmap("tab10")
+    colors = ["#1f6fd1", "#2ca02c", "#f28e1c", "#8e5bd1", "#17a2b8", "#8c564b"]
+    palette = lambda i: colors[i % len(colors)]
     comp_of = {}
     for i, comp in enumerate(components):
         for v in comp:
@@ -109,11 +110,32 @@ def draw(g, components, suggestions, output="ket_qua_do_thi.png",
     ax.set_title("Mạng lưới giao thông (đồ thị)", fontsize=11, weight="bold", color="white",
                  bbox=dict(boxstyle="round,pad=0.35", fc="#3d5bb8", ec="none"))
 
+    # Nền minh họa: các mảng cây xanh và dòng sông (chỉ để trang trí)
+    import random
+    import numpy as np
+    from matplotlib.patches import Circle
+    xs = [p[0] for p in pos.values()]; ys = [p[1] for p in pos.values()]
+    xmin, xmax, ymin, ymax = min(xs), max(xs), min(ys), max(ys)
+    dx, dy = max(xmax - xmin, 1), max(ymax - ymin, 1)
+    mx, my = dx * 0.08, dy * 0.08
+    ax.set_xlim(xmin - mx, xmax + mx)
+    ax.set_ylim(ymin - my, ymax + my)
+    rnd = random.Random(7)
+    for _ in range(9):
+        cx = rnd.uniform(xmin, xmax); cy = rnd.uniform(ymin, ymax)
+        ax.add_patch(Circle((cx, cy), rnd.uniform(0.05, 0.1) * max(dx, dy),
+                            fc="#cfe3b6", ec="none", alpha=.55, zorder=0))
+    rx = np.linspace(xmin - mx, xmax + mx, 200)
+    ry = ymin + dy * (0.38 + 0.12 * np.sin((rx - xmin) / dx * 2 * np.pi)) \
+        + (rx - xmin) / dx * dy * 0.12
+    ax.plot(rx, ry, color="#9cc7e8", lw=34, alpha=.75, solid_capstyle="round", zorder=0)
+    ax.plot(rx, ry, color="#bddcf2", lw=22, alpha=.9, solid_capstyle="round", zorder=0)
+
     # Cạnh hiện có
     for u, v, w in g.edges:
         x1, y1 = pos[u]; x2, y2 = pos[v]
         ci = comp_of.get(u, 0)
-        ax.plot([x1, x2], [y1, y2], color=palette(ci % 10), lw=2.0, alpha=.8, zorder=1)
+        ax.plot([x1, x2], [y1, y2], color="#3b4252", lw=1.6, alpha=.85, zorder=1)
         ax.text((x1 + x2) / 2, (y1 + y2) / 2, f"{w:g}", fontsize=7, color="#333333",
                 ha="center", va="center",
                 bbox=dict(facecolor="white", edgecolor="none", alpha=.75, pad=1), zorder=2)
