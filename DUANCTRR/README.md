@@ -27,12 +27,6 @@ Chương trình mô hình hóa mạng lưới đường bộ nối các khu côn
 | `ket_qua.txt` | Kết quả chạy chương trình |
 | `ket_qua_do_thi.png` | Sơ đồ đồ thị |
 
-## Cách chạy
-
-```
-pip install matplotlib networkx
-python main.py
-```
 
 Chạy với file dữ liệu khác:
 
