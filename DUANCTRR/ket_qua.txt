@@ -1,0 +1,84 @@
+======================================================================
+1. CẤU TRÚC DỮ LIỆU ĐỒ THỊ
+   |V| = 21 đỉnh, |E| = 23 cạnh
+   Cảnh báo dữ liệu: 0
+   Danh sách kề:
+   Cảng Phú Hữu         -> KCN Long Thành(9.8)
+   Cảng Đồng Nai        -> KCN Biên Hòa 1(5.9), Nút giao QL1A(8.1)
+   KCN Amata            -> KCN Long Bình(5.6), Nút giao QL1A(3.2)
+   KCN Biên Hòa 1       -> Cảng Đồng Nai(5.9), KCN Hố Nai(3.5), Nút giao QL1A(4)
+   KCN Dầu Giây         -> KCN Sông Mây(8.9), Nút giao QL20(7.7)
+   KCN Giang Điền       -> KCN Sông Mây(6.8), Nút giao QL20(10.5)
+   KCN Gò Dầu           -> KCN Long Thành(8.4), KCN Tam Phước(11)
+   KCN Hố Nai           -> KCN Biên Hòa 1(3.5), KCN Sông Mây(9.1), KCN Tam Phước(6.3)
+   KCN Long Bình        -> KCN Amata(5.6), KCN Long Thành(12.4), KCN Tam Phước(7.2)
+   KCN Long Thành       -> Cảng Phú Hữu(9.8), KCN Gò Dầu(8.4), KCN Long Bình(12.4)
+   KCN Nhơn Trạch 1     -> KCN Nhơn Trạch 2(4.5), KCN Nhơn Trạch 3(3.8)
+   KCN Nhơn Trạch 2     -> KCN Nhơn Trạch 1(4.5), Nút giao QL51(6)
+   KCN Nhơn Trạch 3     -> KCN Nhơn Trạch 1(3.8), KCN Ông Kèo(5.2)
+   KCN Suối Tre         -> KCN Xuân Lộc(9.5)
+   KCN Sông Mây         -> KCN Dầu Giây(8.9), KCN Giang Điền(6.8), KCN Hố Nai(9.1)
+   KCN Tam Phước        -> KCN Gò Dầu(11), KCN Hố Nai(6.3), KCN Long Bình(7.2)
+   KCN Xuân Lộc         -> KCN Suối Tre(9.5)
+   KCN Ông Kèo          -> KCN Nhơn Trạch 3(5.2), Nút giao QL51(7.1)
+   Nút giao QL1A        -> Cảng Đồng Nai(8.1), KCN Amata(3.2), KCN Biên Hòa 1(4)
+   Nút giao QL20        -> KCN Dầu Giây(7.7), KCN Giang Điền(10.5)
+   Nút giao QL51        -> KCN Nhơn Trạch 2(6), KCN Ông Kèo(7.1)
+
+======================================================================
+2. DUYỆT ĐỒ THỊ TỪ ĐỈNH XUẤT PHÁT: KCN Amata
+
+--- BFS: thăm 14/21 đỉnh ---
+Thứ tự: KCN Amata → KCN Long Bình → Nút giao QL1A → KCN Long Thành → KCN Tam Phước → Cảng Đồng Nai → KCN Biên Hòa 1 → Cảng Phú Hữu → KCN Gò Dầu → KCN Hố Nai → KCN Sông Mây → KCN Dầu Giây → KCN Giang Điền → Nút giao QL20
+Cây BFS:
+KCN Amata
+├── KCN Long Bình
+│   ├── KCN Long Thành
+│   │   ├── Cảng Phú Hữu
+│   │   └── KCN Gò Dầu
+│   └── KCN Tam Phước
+│       └── KCN Hố Nai
+│           └── KCN Sông Mây
+│               ├── KCN Dầu Giây
+│               │   └── Nút giao QL20
+│               └── KCN Giang Điền
+└── Nút giao QL1A
+    ├── Cảng Đồng Nai
+    └── KCN Biên Hòa 1
+
+--- DFS: thăm 14/21 đỉnh ---
+Thứ tự: KCN Amata → KCN Long Bình → KCN Long Thành → Cảng Phú Hữu → KCN Gò Dầu → KCN Tam Phước → KCN Hố Nai → KCN Biên Hòa 1 → Cảng Đồng Nai → Nút giao QL1A → KCN Sông Mây → KCN Dầu Giây → Nút giao QL20 → KCN Giang Điền
+Cây DFS:
+KCN Amata
+└── KCN Long Bình
+    └── KCN Long Thành
+        ├── Cảng Phú Hữu
+        └── KCN Gò Dầu
+            └── KCN Tam Phước
+                └── KCN Hố Nai
+                    ├── KCN Biên Hòa 1
+                    │   └── Cảng Đồng Nai
+                    │       └── Nút giao QL1A
+                    └── KCN Sông Mây
+                        └── KCN Dầu Giây
+                            └── Nút giao QL20
+                                └── KCN Giang Điền
+
+======================================================================
+3. THÀNH PHẦN LIÊN THÔNG
+   BFS: 3 thành phần | DFS: 3 thành phần | Trùng khớp: True
+   => Mạng lưới KHÔNG liên thông
+   TP 1 (14 đỉnh): Cảng Phú Hữu, Cảng Đồng Nai, KCN Amata, KCN Biên Hòa 1, KCN Dầu Giây, KCN Giang Điền, KCN Gò Dầu, KCN Hố Nai, KCN Long Bình, KCN Long Thành, KCN Sông Mây, KCN Tam Phước, Nút giao QL1A, Nút giao QL20
+   TP 2 (5 đỉnh): KCN Nhơn Trạch 1, KCN Nhơn Trạch 2, KCN Nhơn Trạch 3, KCN Ông Kèo, Nút giao QL51
+   TP 3 (2 đỉnh): KCN Suối Tre, KCN Xuân Lộc
+
+======================================================================
+4. KHU VỰC BỊ CÔ LẬP & ĐỀ XUẤT TUYẾN BỔ SUNG
+   Khu vực cô lập 1: KCN Nhơn Trạch 1, KCN Nhơn Trạch 2, KCN Nhơn Trạch 3, KCN Ông Kèo, Nút giao QL51
+   Khu vực cô lập 2: KCN Suối Tre, KCN Xuân Lộc
+   Cần tối thiểu 2 tuyến mới (= số TP - 1):
+   + Nối 'Cảng Đồng Nai' ↔ 'KCN Nhơn Trạch 2' (≈ 10.8 km đường chim bay) -> nối nhóm 5 đỉnh [KCN Nhơn Trạch 1, ...] vào mạng chính
+   + Nối 'KCN Dầu Giây' ↔ 'KCN Suối Tre' (≈ 16.1 km đường chim bay) -> nối nhóm 2 đỉnh [KCN Suối Tre, ...] vào mạng chính
+   Tổng chiều dài đề xuất ≈ 26.9 km
+
+5. Đã lưu sơ đồ: ket_qua_do_thi.png

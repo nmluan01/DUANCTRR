@@ -8,7 +8,7 @@ import sys
 BASE = os.path.dirname(os.path.abspath(__file__))   # thư mục chứa main.py
 from graph_io import load_graph
 from traversal import bfs, dfs, format_tree
-from DUANCTRR.components import find_components, isolated_areas, suggest_links
+from components import find_components, isolated_areas, suggest_links
 from visualize import draw
 
 
