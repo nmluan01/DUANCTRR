@@ -43,3 +43,5 @@ python main.py edges.csv nodes.csv
 ## Kết quả
 
 Xem file `ket_qua.txt` và ảnh `ket_qua_do_thi.png`.
+
+![Sơ đồ](ket_qua_do_thi.png)
