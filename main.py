@@ -19,6 +19,12 @@ def main():
 
     # 1. Xây dựng đồ thị + kiểm tra hợp lệ
     g, warns = load_graph(edge_file, node_file)
+
+    if "edges_loi" in edge_file:
+        print(f"Số cạnh hợp lệ được nạp: {len(g.edges)}")
+        print(f"Số cảnh báo: {len(warns)}")
+        for w in warns:
+            print("! " + w)
     P("=" * 70)
     P("1. CẤU TRÚC DỮ LIỆU ĐỒ THỊ")
     P(f"   |V| = {len(g.vertices)} đỉnh, |E| = {len(g.edges)} cạnh")
