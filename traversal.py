@@ -1,15 +1,3 @@
-"""
-[THÀNH VIÊN 2] Duyệt đồ thị: BFS (hàng đợi) và DFS (đệ quy / ngăn xếp).
-
-Các hàm được main.py và components.py gọi:
-    bfs(g, s)               -> (order, parent)
-    dfs(g, s)               -> (order, parent)
-    format_tree(parent, s)  -> chuỗi cây duyệt
-
-Chạy riêng để thử nhiều đỉnh xuất phát:
-    python traversal.py --start "KCN Amata"
-    python traversal.py --start "Cảng Phú Hữu" --edges data/edges.csv --nodes data/nodes.csv
-"""
 import argparse
 import os
 import sys
@@ -17,39 +5,29 @@ from collections import deque
 
 
 def bfs(g, s):
-    """BFS dùng hàng đợi (FIFO). Độ phức tạp O(|V| + |E|).
-
-    Trả về (order, parent):
-      order  : danh sách đỉnh theo thứ tự thăm
-      parent : parent[v] = đỉnh cha trong cây BFS (parent[s] = None)
-    """
     visited = {s}
     parent = {s: None}
     order = []
     q = deque([s])
     while q:
         u = q.popleft()
-        order.append(u)                  # "tham u"
+        order.append(u)                  
         for v in g.neighbors(u):
             if v not in visited:
-                visited.add(v)           # đánh dấu ngay khi đưa vào hàng đợi
+                visited.add(v)           
                 parent[v] = u
                 q.append(v)
     return order, parent
 
 
 def dfs(g, s):
-    """DFS đệ quy (ngăn xếp lời gọi hàm, LIFO). Độ phức tạp O(|V| + |E|).
-
-    Trả về (order, parent) giống bfs.
-    """
     visited = set()
     parent = {s: None}
     order = []
 
     def visit(u):
         visited.add(u)
-        order.append(u)                  # "tham u"
+        order.append(u)                  
         for v in g.neighbors(u):
             if v not in visited:
                 parent[v] = u
@@ -60,9 +38,6 @@ def dfs(g, s):
 
 
 def dfs_iterative(g, s):
-    """DFS dùng ngăn xếp tường minh, thay cho bản đệ quy khi đồ thị rất lớn.
-    Cho cùng thứ tự thăm với dfs() ở trên.
-    """
     visited = set()
     parent = {s: None}
     order = []
@@ -79,12 +54,11 @@ def dfs_iterative(g, s):
                 stack.append((v, iter(g.neighbors(v))))
                 break
         else:
-            stack.pop()                  # hết đỉnh kề chưa thăm -> quay lui
+            stack.pop()                  
     return order, parent
 
 
 def format_tree(parent, root):
-    """Trả về chuỗi vẽ cây duyệt (từ mảng parent) dạng cây thư mục."""
     children = {}
     for v, p in parent.items():
         if p is not None:
@@ -104,7 +78,6 @@ def format_tree(parent, root):
 
 
 def hops(parent, v):
-    """Số cạnh trên đường đi từ gốc tới v theo cây duyệt."""
     d = 0
     while parent[v] is not None:
         v = parent[v]
@@ -113,7 +86,6 @@ def hops(parent, v):
 
 
 def count_components(g, algo):
-    """Đếm thành phần liên thông bằng BFS hoặc DFS (mục 1.2.3)."""
     visited, n = set(), 0
     for v in g.vertices:
         if v not in visited:
@@ -124,7 +96,7 @@ def count_components(g, algo):
 
 
 def _cli():
-    from DUANCTRR.graph_io import load_graph
+    from graph_io import load_graph
 
     base = os.path.dirname(os.path.abspath(__file__))
     ap = argparse.ArgumentParser(description="Duyệt BFS và DFS từ một đỉnh xuất phát")
