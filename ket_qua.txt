@@ -82,3 +82,12 @@ KCN Amata
    Tổng chiều dài đề xuất ≈ 26.9 km
 
 5. Đã lưu sơ đồ: ket_qua_do_thi.png
+
+======================================================================
+6. THAY ĐỔI ĐỈNH XUẤT PHÁT
+   Xuất phát KCN Amata: BFS thăm 14 đỉnh, DFS thăm 14 đỉnh, cùng tập đỉnh: True
+   Xuất phát KCN Long Thành: BFS thăm 14 đỉnh, DFS thăm 14 đỉnh, cùng tập đỉnh: True
+   Xuất phát KCN Nhơn Trạch 1: BFS thăm 5 đỉnh, DFS thăm 5 đỉnh, cùng tập đỉnh: True
+   Xuất phát KCN Xuân Lộc: BFS thăm 2 đỉnh, DFS thăm 2 đỉnh, cùng tập đỉnh: True
+   Số thành phần liên thông (BFS): 3
+   Số thành phần liên thông (DFS): 3

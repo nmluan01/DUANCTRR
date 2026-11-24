@@ -7,7 +7,7 @@ import sys
 
 BASE = os.path.dirname(os.path.abspath(__file__))   # thư mục chứa main.py
 from graph_io import load_graph
-from traversal import bfs, dfs, format_tree
+from traversal import bfs, dfs, format_tree, count_components
 from components import find_components, isolated_areas, suggest_links
 from visualize import draw
 
@@ -76,6 +76,16 @@ def main():
     draw(g, cb, sug, os.path.join(BASE, "ket_qua_do_thi.png"),
          "Mạng lưới đường bộ các KCN Đồng Nai – thành phần liên thông")
     P("\n5. Đã lưu sơ đồ: ket_qua_do_thi.png")
+    # 6. Thay đổi đỉnh xuất phát (kiểm tra BFS/DFS)
+    P("\n" + "=" * 70)
+    P("6. THAY ĐỔI ĐỈNH XUẤT PHÁT")
+    for s in ["KCN Amata", "KCN Long Thành", "KCN Nhơn Trạch 1", "KCN Xuân Lộc"]:
+        b, _ = bfs(g, s)
+        d, _ = dfs(g, s)
+        P(f"   Xuất phát {s}: BFS thăm {len(b)} đỉnh, DFS thăm {len(d)} đỉnh, "
+          f"cùng tập đỉnh: {set(b) == set(d)}")
+    P("   Số thành phần liên thông (BFS): " + str(count_components(g, bfs)))
+    P("   Số thành phần liên thông (DFS): " + str(count_components(g, dfs)))
     open(os.path.join(BASE, "ket_qua.txt"), "w", encoding="utf-8").write("\n".join(out))
 
 
