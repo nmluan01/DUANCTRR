@@ -2,39 +2,25 @@
 [THÀNH VIÊN 3] Xác định thành phần liên thông, khoanh vùng khu vực cô lập 
 và đề xuất tuyến đường bổ sung dựa trên khoảng cách Euclid.
 """
+from traversal import bfs, dfs_iterative
 import math
 
 def find_components(g, method="bfs"):
-    """
-    Tìm tất cả các thành phần liên thông của đồ thị.
-    Trả về danh sách các thành phần, mỗi thành phần là một danh sách các đỉnh.
-    """
+    if method not in ("bfs", "dfs"):
+        raise ValueError("method phải là 'bfs' hoặc 'dfs'")
+    algo = bfs if method == "bfs" else dfs_iterative
+
     visited = set()
     components = []
-    
+
     # Duyệt qua từng đỉnh trong đồ thị
     for u in g.vertices:
         if u not in visited:
-            comp = []
-            # Sử dụng thuật toán duyệt (BFS hoặc DFS tùy cấu hình)
-            # Bạn có thể gọi trực tiếp hàm từ module traversal hoặc tự cài đặt cơ chế queue/stack đơn giản
-            queue = [u]
-            visited.add(u)
-            
-            idx = 0
-            while idx < len(queue):
-                curr = queue[idx]
-                idx += 1
-                comp.append(curr)
-                
-                for neighbor in g.neighbors(curr):
-                    if neighbor not in visited:
-                        visited.add(neighbor)
-                        queue.append(neighbor)
-            
-            components.append(sorted(comp))
-            
-    # Sắp xếp các thành phần theo số lượng đỉnh giảm dần (thành phần lớn nhất đứng đầu)
+            order, _ = algo(g, u)
+            visited.update(order)
+            components.append(sorted(order))
+
+    # Sắp xếp các thành phần theo số lượng đỉnh giảm dần
     components.sort(key=len, reverse=True)
     return components
 
